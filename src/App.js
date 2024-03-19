@@ -5,25 +5,39 @@ import Home from "../src/components/Home";
 import UserHomePage from "./components/userPanel/UserHomePage";
 import Header from "./components/userPanel/Header";
 import Logout from "./components/userPanel/Logout";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import UploadImage from "./components/userPanel/UploadImage";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { AdminDataContext } from "./components/reusableComponent/AdminContext";
 
 function App() {
-  const isUserLoggedIn = localStorage.getItem("currentUser");
-  console.log("isUserLoggedIn rout", isUserLoggedIn);
+  const { isAuthenticated, setIsAuthenticated } = useContext(AdminDataContext);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    // Check if the user is already logged in (e.g., based on token in localStorage)
-    localStorage.getItem("token") !== null
-  );
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
-    setIsLoggedIn(!isLoggedIn);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const currentUser = async (req, res) => {
+    try {
+      const user = await axios.get(`/api/v1/users`);
+      // setIsLoggedIn(true);
+      setIsAuthenticated(true);
+      console.log("isLoggedIn", isLoggedIn);
+      console.log("user", user);
+    } catch (error) {
+      console.log(error);
+      setIsAuthenticated(false);
+      return navigate("/login");
+    }
   };
+
+  useEffect(() => {
+    currentUser();
+  }, []);
 
   return (
     <div className="App">
-      {isLoggedIn ? (
+      {isAuthenticated ? (
         <>
           <Header />
           <Routes>
@@ -32,13 +46,17 @@ function App() {
             <Route path="/Upload" element={<UploadImage />}></Route>
             <Route
               path="/Logout"
-              element={<Logout handleLogin={handleLogin} />}
+              element={<Logout />}
+
+              // element={<Logout handleLogin={handleLogin} />}
             ></Route>
           </Routes>
         </>
       ) : (
         <Routes>
-          <Route path="/" element={<Home handleLogin={handleLogin} />}></Route>
+          <Route path="/login" element={<Home />}></Route>
+
+          {/* <Route path="/" element={<Home />}></Route> */}
         </Routes>
       )}
     </div>

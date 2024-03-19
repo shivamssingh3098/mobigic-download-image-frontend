@@ -60,7 +60,7 @@ export default function Home(props) {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Login handleLogin={props.handleLogin} />
+        <Login setIsAuthenticated={props.setIsAuthenticated} />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <SignUp />

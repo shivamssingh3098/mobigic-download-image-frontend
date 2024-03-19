@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import axios from "axios";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+// import PhoneInput from "react-phone-input-2";
+// import "react-phone-input-2/lib/style.css";
 
 // import SnackbarComp from "./reusableComponent/Snackbar";
 
@@ -9,10 +11,11 @@ const SignUp = ({}) => {
   const [userDetails, setUserDetails] = useState({
     userName: "",
     email: "",
+    number: "",
     fullName: "",
     password: "",
   });
-
+  // const [number, setNumber] = useState(null);
   const [open, setOpen] = React.useState(false);
   const [msg, setMsg] = React.useState(false);
 
@@ -34,6 +37,7 @@ const SignUp = ({}) => {
       setUserDetails({
         userName: "",
         email: "",
+        number: "",
         fullName: "",
         password: "",
       });
@@ -117,6 +121,30 @@ const SignUp = ({}) => {
                     onChange={(e) => onChange(e)}
                     size="small"
                     type="email"
+                    required
+                    sx={addressTxt}
+                  />
+
+                  <Typography
+                    variant="h6"
+                    fontWeight={500}
+                    fontSize="16px"
+                    sx={{ color: "grey.main", mt: 2 }}
+                  >
+                    Mobile Number*
+                  </Typography>
+
+                  {/* <PhoneInput
+                    country={"us"}
+                    value={number}
+                    onChange={() => setNumber("+" + number)}
+                  /> */}
+
+                  <TextField
+                    name="number"
+                    value={userDetails.number}
+                    onChange={(e) => onChange(e)}
+                    size="small"
                     required
                     sx={addressTxt}
                   />

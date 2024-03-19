@@ -15,21 +15,18 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
-
+import { AdminDataContext } from "../reusableComponent/AdminContext";
 const drawerWidth = 240;
 const navItems = ["Home", "About", "Logout"];
 
 function Header(props) {
+  const { isAuthenticated } = React.useContext(AdminDataContext);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(
-    // Check if the user is already logged in (e.g., based on token in localStorage)
-    localStorage.getItem("token") !== null
-  );
 
   let navItems = [];
 
-  if (isLoggedIn) {
+  if (isAuthenticated) {
     navItems = ["Home", "Upload", , "Logout"];
   } else {
     navItems = ["Home", "About"];

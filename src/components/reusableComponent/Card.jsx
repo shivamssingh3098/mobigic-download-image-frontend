@@ -62,6 +62,7 @@ export default function ImgCard(props) {
             alt="green iguana"
           />
           <CardContent>
+            <p>{props.item.code}</p>
             <Button onClick={() => deleteImage(props.item._id)}>Delete</Button>
 
             <CloudDownloadIcon
