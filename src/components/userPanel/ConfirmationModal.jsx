@@ -67,7 +67,7 @@ const ConfirmationModal = (props) => {
                 justifySelf: "start",
               }}
             >
-              Enter Code to delete this file
+              Enter this {props.imageCode} Code to download image this file
             </Typography>
 
             <IconButton onClick={props.handleCloseModal} aria-label="delete">

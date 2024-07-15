@@ -12,7 +12,7 @@ var FileSaver = require("file-saver");
 export default function ImgCard(props) {
   const [openModal, setOpenModal] = React.useState(false);
   const [code, setCode] = React.useState(null);
-
+  const [imageCode, setImageCode] = React.useState(null);
   const downloadImage = () => {
     if (props.item.code == code) {
       FileSaver.saveAs(props.item.fileName);
@@ -28,6 +28,8 @@ export default function ImgCard(props) {
     setOpenModal(false);
   };
   const handleOpenModal = () => {
+    console.log("setImageCode", props.item.code);
+    setImageCode(props.item.code);
     setOpenModal(true);
   };
 
@@ -40,6 +42,7 @@ export default function ImgCard(props) {
       props.setOpen(true);
 
       props.getImages(props.id);
+      alert("Image deleted successfully");
     } catch (error) {
       alert("Invalid request");
       console.log(error);
@@ -47,7 +50,6 @@ export default function ImgCard(props) {
   };
 
   const downloadFile = (code) => {
-    console.log(code);
     handleOpenModal();
   };
 
@@ -78,6 +80,7 @@ export default function ImgCard(props) {
         downloadImage={downloadImage}
         setCode={setCode}
         code={code}
+        imageCode={imageCode}
       />
     </>
   );
