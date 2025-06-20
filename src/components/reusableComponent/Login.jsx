@@ -33,7 +33,7 @@ const Login = ({}) => {
         `+91${n}`,
         recaptcha
       );
-      console.log(confirmation);
+      console.log("firebase confirmation is ---- ", confirmation);
 
       setUser(confirmation);
     } catch (error) {
